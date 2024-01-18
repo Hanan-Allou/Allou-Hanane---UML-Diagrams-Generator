@@ -3,21 +3,21 @@ package org.mql.java.models;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class Class {
+public class ClassModels {
 	private String name;
 	private int modifier;
 	private Method[] methods;
 	private Field[] fields;
 	private java.lang.annotation.Annotation[] annotations;
 	private java.lang.Class[] interfaces;
-	private Class parent;
+	private ClassModels parent;
 	
-	public Class() {
+	public ClassModels() {
 		
 	}
 
-	public Class(String name, int modifier, Method[] methods, Field[] fields, java.lang.annotation.Annotation[] annotations,
-			java.lang.Class[] interfaces, Class parent) {
+	public ClassModels(String name, int modifier, Method[] methods, Field[] fields, java.lang.annotation.Annotation[] annotations,
+			java.lang.Class[] interfaces, ClassModels parent) {
 		this.name = name;
 		this.modifier = modifier;
 		this.methods = methods;
@@ -75,11 +75,11 @@ public class Class {
 		this.interfaces = interfaces;
 	}
 
-	public Class getParent() {
+	public ClassModels getParent() {
 		return parent;
 	}
 
-	public void setParent(Class parent) {
+	public void setParent(ClassModels parent) {
 		this.parent = parent;
 	}
 	

@@ -4,14 +4,14 @@ import java.util.List;
 
 public class Package {
 	private String name;
-	private List<Class> classs;
+	private List<ClassModels> classs;
 	private List<Package> packages;
 	
 	public Package() {
 		
 	}
 
-	public Package(String name, List<Class> classs, List<Package> packages) {
+	public Package(String name, List<ClassModels> classs, List<Package> packages) {
 		this.name = name;
 		this.classs = classs;
 		this.packages = packages;
@@ -25,11 +25,11 @@ public class Package {
 		this.name = name;
 	}
 
-	public List<Class> getClasss() {
+	public List<ClassModels> getClasss() {
 		return classs;
 	}
 
-	public void setClasss(List<Class> classs) {
+	public void setClasss(List<ClassModels> classs) {
 		this.classs = classs;
 	}
 
