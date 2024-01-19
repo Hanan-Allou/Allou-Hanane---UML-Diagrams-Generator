@@ -1,45 +1,42 @@
 package org.mql.java.reflection;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.mql.java.models.ClassModels;
 
 public class ClassExtractor {
+	 public static Set<String> extractClassesInPackage(String projectPath, String packageName) {
+	        String packagePath = packageName.replace(".", File.separator);
+	        String packageFullPath = projectPath + File.separator + "src" + File.separator + packagePath;
 
-	public static ClassModels explorClass(Class<?> clazz){
-		 int modifiers = clazz.getModifiers();
-		 String name = clazz.getSimpleName();
-		 Class[] interfaces = clazz.getInterfaces();
-		 Field[] fields = clazz.getDeclaredFields();
-		 Method[] methodes = clazz.getDeclaredMethods();
-		 java.lang.annotation.Annotation[] annotations = clazz.getDeclaredAnnotations();
-		 org.mql.java.models.ClassModels infoClass = new org.mql.java.models.ClassModels();
-		 infoClass.setName(name);
-		 infoClass.setAnnotations(annotations);
-		 infoClass.setFields(fields);
-		 infoClass.setInterfaces(interfaces);
-		 infoClass.setMethods(methodes);
-		 infoClass.setModifier(modifiers);
-		return infoClass;
+	        Set<String> classes = new HashSet<>();
+	        extractClasses(new File(packageFullPath), packageName, classes);
+
+	        return classes;
+	    }
+
+	    private static void extractClasses(File directory, String packageName, Set<String> classes) {
+	        if (directory.exists() && directory.isDirectory()) {
+	            File[] files = directory.listFiles((dir, name) -> name.endsWith(".class"));
+	            if (files != null) {
+	                for (File file : files) {
+	                    String className = packageName + "." + file.getName().replace(".class", "");
+	                    classes.add(className);
+	                }
+	            }
+	        }
+	    }
+    public static void main(String[] args) {
+    	 String projectPath = "C:\\DATA\\workspace\\Allou Hanane - StringMapper";
+         String packageName = "org.mql.java.Mapperr";
+
+         Set<String> classNames = ClassExtractor.extractClassesInPackage("C:\\DATA\\workspace\\Allou Hanane - StringMapper", "org.mql.java.Mapperr");
+
+         System.out.println("Classes in package " + packageName + ":");
+         for (String className : classNames) {
+             System.out.println(className);
+         }
+     }
 	}
-	
-	public static Set<String> getClasseNames(File src) {
-		Set<String> packageNames = new HashSet<String>();
-		for (File el : src.listFiles()) {
-			if(el.isDirectory()) {
-				Set<String> temp = getClasseNames(el);
-				for (String c : temp) {
-					packageNames.add(el.getName() + "." + c);
-				}
-			}
-			else {
-				packageNames.add(el.getName());
-			}
-		}
-		return packageNames;
-	}
-}
+

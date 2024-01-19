@@ -35,15 +35,16 @@ public class CustomClassLoader extends ClassLoader{
 	    }
 
 	    
+	   
 	    
-	    
+
 	    public static void main(String[] args) {
 	        
-	        String projectPath = "C:\\DATA\\workspace\\Allou Hanane - StringMapper\\bin";
+	        String projectPath = "C:\\\\DATA\\\\workspace\\\\Allou Hanane - StringMapper\\\\bin";
 	        CustomClassLoader customClassLoader = new CustomClassLoader(projectPath, ClassLoader.getSystemClassLoader());
 
 	        try {
-	            Class<?> loadedClass = customClassLoader.loadClass("org.mql.java.exemples.Exemple");
+	            Class<?> loadedClass = customClassLoader.loadClass("org.mql.java.models.Person");
 
 	            System.out.println("Loaded class: " + loadedClass.getName());
 

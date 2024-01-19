@@ -1,16 +1,15 @@
 package org.mql.java.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 
 public class Project {
 	private String name;
-	private List<String> packages;
+	private Set<PackageM> packages;
 	public Project() {
 		
 	}
-	public Project(String name, List<String> packages) {
+	public Project(String name, Set<PackageM> packages) {
 		this.name = name;
 		this.packages = packages;
 	}
@@ -20,10 +19,10 @@ public class Project {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<String> getPackages() {
+	public Set<PackageM> getPackages() {
 		return packages;
 	}
-	public void setPackages(List<String> packages) {
+	public void setPackages(Set<PackageM> packages) {
 		this.packages = packages;
 	}
 

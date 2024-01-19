@@ -5,23 +5,25 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import org.mql.java.reflection.ProjectLoader;
-import org.mql.java.ui.ChooseFile;
+import org.mql.java.models.Project;
+import org.mql.java.reflection.ProjectReflect;
+import org.mql.java.xml.dom.XMLParser;
+
 
 public class Exemples {
 
 	public Exemples() {
-		exp01();
+		exp04();
 	}
 
 	
-
 	public void exp01() {
-		ProjectLoader p = new ProjectLoader("C:\\\\DATA\\\\workspace\\\\Allou Hanane - StringMapper\\\\bin");
-		p.loadPrject();
+		        ProjectReflect pre = new ProjectReflect("C:\\DATA\\workspace\\projet\\p03-Annotations and Reflection_02\\bin");
+		        pre.projectLoader();
+		    
+
 	}
 	
 	
@@ -39,16 +41,23 @@ public class Exemples {
 		}
 		
 	}
-	
+	/*
 	
 	public void exp03() {
 		ChooseFile file = new ChooseFile();
 		File f = file.showProjectChooserDialog();
 		String path = f.getAbsolutePath();
-		System.out.println("11111111111111"+path+"1111111111111111");
-		ProjectLoader p = new ProjectLoader(path+"\\bin");
-		p.loadPrject();
+	        ProjectReflect pre = new ProjectReflect(path+"\\\\bin");
+	        pre.projectLoader();
+	    
 		
+	}*/
+	
+	
+	public void exp04() {
+		ProjectReflect projectReflect = new ProjectReflect("C:\\\\DATA\\\\workspace\\\\projet\\\\p03-Annotations and Reflection_02\\\\bin");
+    	Project project = projectReflect.projectLoader();
+    	XMLParser.createXML(project, "C:\\DATA\\workspace\\Allou Hanane - UML Diagrams Generator\\src\\resourses\\NewFile.xml");
 	}
 	
 	void ClassExtractor() {
@@ -95,6 +104,7 @@ public class Exemples {
 		}
 		return packageNames;
 	}
+	
 	
 	public Set<String> getPackageNames(File src) {
 		Set<String> classNames = getClasseNames(src);
