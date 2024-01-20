@@ -17,7 +17,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
-public class XMLParser {
+public class XMLWRITER {
 
     public static void createXML(Project project, String outputPath) {
         try {
@@ -26,7 +26,7 @@ public class XMLParser {
 
             Document document = documentBuilder.newDocument();
             Element rootElement = document.createElement("project");
-            rootElement.setAttribute("projectName", ""); // Set your project name here
+            rootElement.setAttribute("projectName", ""); 
 
             Element packagesElement = document.createElement("packages");
             document.appendChild(rootElement);
@@ -45,12 +45,14 @@ public class XMLParser {
                     for (FieldsModels field : cls.getFields()) {
                         Element fieldElement = document.createElement("field");
                         fieldElement.appendChild(document.createTextNode(field.getName()));
+                        fieldElement.setAttribute("fieldType",field.getType());
                         classElement.appendChild(fieldElement);
                     }
 
                     for (MethodModels method : cls.getMethods()) {
                         Element methodElement = document.createElement("method");
                         methodElement.appendChild(document.createTextNode(method.getName()));
+                        methodElement.setAttribute("methodType",method.getType());
                         classElement.appendChild(methodElement);
                     }
                 }

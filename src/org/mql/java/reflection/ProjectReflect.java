@@ -65,14 +65,14 @@ public class ProjectReflect {
     private Classs createClass(Class<?> loadedClass) {
         List<MethodModels> methods = createMethods(loadedClass);
         List<FieldsModels> fields = createFields(loadedClass);
-        return new Classs(loadedClass.getName(), fields, methods);
+        return new Classs(loadedClass.getSimpleName(), fields, methods);
     }
 
     private List<FieldsModels> createFields(Class<?> loadedClass) {
         List<FieldsModels> fields = new LinkedList<>();
         Field[] classFields = loadedClass.getDeclaredFields();
         for (Field field : classFields) {
-            fields.add(new FieldsModels(field.getName(), field.getType().getName()));
+            fields.add(new FieldsModels(field.getName(), field.getType().getSimpleName()));
         }
         return fields;
     }
@@ -81,7 +81,7 @@ public class ProjectReflect {
         List<MethodModels> methods = new LinkedList<>();
         Method[] classMethods = loadedClass.getDeclaredMethods();
         for (Method method : classMethods) {
-            methods.add(new MethodModels(method.getName(), method.getReturnType().getName()));
+            methods.add(new MethodModels(method.getName(), method.getReturnType().getSimpleName()));
         }
         return methods;
     }
@@ -164,6 +164,9 @@ public class ProjectReflect {
         }
     }
 
+    public static void main(String[] args) {
+    	ProjectReflect p= new ProjectReflect("C:\\\\DATA\\\\workspace\\\\projet\\\\p03-Annotations and Reflection_02\\\\bin");
+    	p.projectLoader();	}
   
   
    
