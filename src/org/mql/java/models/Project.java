@@ -6,6 +6,7 @@ import java.util.Set;
 public class Project {
 	private String name;
 	private Set<PackageM> packages;
+	private Set<Relation> relations;
 	public Project() {
 		
 	}
@@ -25,7 +26,13 @@ public class Project {
 	public void setPackages(Set<PackageM> packages) {
 		this.packages = packages;
 	}
+	public Set<Relation> getRelations() {
+		return relations;
+	}
+	public void setRelations(Set<Relation> relations) {
+		this.relations = relations;
+	}
+	
+	
 
-	
-	
 }

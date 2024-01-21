@@ -13,7 +13,8 @@ import org.mql.java.models.*;
 public class ProjectReflect {
     private String path;
     private Set<PackageM> packageM = new HashSet<>();
-
+    private  Set<Class<?>> ClassesLoaded = new HashSet<Class<?>>();
+    Set<Classs> classesInPackage = new HashSet<>();
     public ProjectReflect(String path) {
         this.path = path;
     }
@@ -22,19 +23,20 @@ public class ProjectReflect {
         ClassLoaderH classLoaderH = new ClassLoaderH(path, ProjectReflect.class.getClassLoader());
         Set<String> packageNames = extractDirectories(new File(path));
         System.out.println("Project Path: " + path);
+       
         
         for (String packageName : packageNames) {
             Set<String> classNames = retrieveClassesInPackage(path, packageName);
 
-            Set<Classs> classesInPackage = new HashSet<>();
+            
             
             for (String className : classNames) {
                 try {
                     Class<?> loadedClass = classLoaderH.loadClassFromFile(className);
-                    
+                    this.ClassesLoaded.add(loadedClass);
                     Classs classs = createClass(loadedClass);
                     
-                    classesInPackage.add(classs);
+                    this.classesInPackage.add(classs);
                 } catch (Exception e) {
                     System.out.println("Error loading class " + className + ": " + e.getMessage());
                     e.printStackTrace();
@@ -104,7 +106,7 @@ public class ProjectReflect {
         return packageNames;
     }
     
-    public static Set<String> retrieveClassesInPackage(String projectPath, String packageName) {
+    private static Set<String> retrieveClassesInPackage(String projectPath, String packageName) {
         Set<String> classes = new HashSet<>();
         File root = new File(projectPath + File.separator + File.separator + packageName.replace(".", File.separator));
         File[] files = root.listFiles();
@@ -164,10 +166,16 @@ public class ProjectReflect {
         }
     }
 
-    public static void main(String[] args) {
-    	ProjectReflect p= new ProjectReflect("C:\\\\DATA\\\\workspace\\\\projet\\\\p03-Annotations and Reflection_02\\\\bin");
-    	p.projectLoader();	}
+	public Set<PackageM> getPackageM() {
+		return packageM;
+	}
+
+	
+	public Set<Class<?>> getClassesLoaded() {
+		return ClassesLoaded;
+	}
+
   
-  
+    
    
 }
