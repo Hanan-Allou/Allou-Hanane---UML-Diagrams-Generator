@@ -21,9 +21,9 @@ public class PackageParser {
 
 	
 	
-	  public List<PackageM> parse(String src) {
+	  public Set<PackageM> parse(String src) {
 	        Set<Classs> classesList = new HashSet<>();
-	        List<PackageM> packages = new ArrayList<>();
+	        Set<PackageM> packages = new HashSet<>();
 	        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	        try {
 	            DocumentBuilder builder = factory.newDocumentBuilder();

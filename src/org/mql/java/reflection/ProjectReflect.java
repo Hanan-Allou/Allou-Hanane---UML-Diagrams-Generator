@@ -14,16 +14,15 @@ public class ProjectReflect {
     private String path;
     private Set<PackageM> packageM = new HashSet<>();
     private  Set<Class<?>> ClassesLoaded = new HashSet<Class<?>>();
+    private Set<Relation> relations = new HashSet<Relation>();
     Set<Classs> classesInPackage = new HashSet<>();
     public ProjectReflect(String path) {
         this.path = path;
     }
 
     public Project projectLoader() {
-        ClassLoaderH classLoaderH = new ClassLoaderH(path, ProjectReflect.class.getClassLoader());
+    	SourceClassLoader clsL = new SourceClassLoader();
         Set<String> packageNames = extractDirectories(new File(path));
-        System.out.println("Project Path: " + path);
-       
         
         for (String packageName : packageNames) {
             Set<String> classNames = retrieveClassesInPackage(path, packageName);
@@ -32,7 +31,7 @@ public class ProjectReflect {
             
             for (String className : classNames) {
                 try {
-                    Class<?> loadedClass = classLoaderH.loadClassFromFile(className);
+                	Class<?> loadedClass = clsL.loadClass(path, className);
                     this.ClassesLoaded.add(loadedClass);
                     Classs classs = createClass(loadedClass);
                     
@@ -45,21 +44,23 @@ public class ProjectReflect {
             
             this.packageM.add(createPackage(packageName, classesInPackage));
             
+            classesInPackage.clear();
            
         }
-        Project p = createProject(path,packageM);
-        printProjectDetails();
+        ClassRelations classRelations = new ClassRelations(ClassesLoaded);
+        Project p = createProject(path, packageM, classRelations.getRelations());
+       // printProjectDetails();
         return p;
     }
 
    
 
     
-    private Project createProject(String path2, Set<PackageM> packageM2) {
-		Project p = new Project(path2,packageM2);
-		return p;
-	}
-
+    private Project createProject(String path, Set<PackageM> packageM, Set<Relation> relations) {
+        Project p = new Project(path, packageM, relations);
+        return p;
+    }
+   
 	private PackageM createPackage(String packageName, Set<Classs> classesInPackage) {
         return new PackageM(packageName, new HashSet<>(classesInPackage));
     }
@@ -176,6 +177,8 @@ public class ProjectReflect {
 	}
 
   
+	
+	
     
    
 }

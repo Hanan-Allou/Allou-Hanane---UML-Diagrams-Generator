@@ -10,11 +10,12 @@ import java.util.Set;
 
 import org.mql.java.models.Classs;
 import org.mql.java.models.FieldsModels;
-import org.mql.java.models.MethodModels;
 import org.mql.java.models.PackageM;
 import org.mql.java.models.Project;
+import org.mql.java.models.Relation;
+import org.mql.java.reflection.ClassRelations;
 import org.mql.java.reflection.ProjectReflect;
-import org.mql.java.xml.dom.XmlClassParser;
+import org.mql.java.ui.Main;
 import org.mql.java.xml.dom.ClassParser;
 import org.mql.java.xml.dom.PackageParser;
 import org.mql.java.xml.dom.XMLWRITER;
@@ -23,14 +24,14 @@ import org.mql.java.xml.dom.XMLWRITER;
 public class Exemples {
 
 	public Exemples() {
-		exp07();
+		exp09();
 	}
 
 	
 	public void exp01() {
-		        ProjectReflect pre = new ProjectReflect("C:\\DATA\\workspace\\projet\\p03-Annotations and Reflection_02\\bin");
+		        ProjectReflect pre = new ProjectReflect("C:\\DATA\\workspace\\p04-XML-2 Parsers\\bin");
 		        pre.projectLoader();
-		    
+		        
 
 	}
 	
@@ -63,36 +64,17 @@ public class Exemples {
 	
 	
 	public void exp04() {
-		ProjectReflect projectReflect = new ProjectReflect("C:\\\\DATA\\\\workspace\\\\projet\\\\p03-Annotations and Reflection_02\\\\bin");
+		ProjectReflect projectReflect = new ProjectReflect("C:\\\\\\\\DATA\\\\\\\\workspace\\\\\\\\p04-XML-2 Parsers\\\\bin");
     	Project project = projectReflect.projectLoader();
     	XMLWRITER.createXML(project, "C:\\DATA\\workspace\\Allou Hanane - UML Diagrams Generator\\src\\resourses\\File.xml");
 	}
 	
 	
-	public void exp05() {
-		XmlClassParser xml = new XmlClassParser();
-		List<Classs> c = xml.parse("C:\\\\DATA\\\\workspace\\\\Allou Hanane - UML Diagrams Generator\\\\src\\\\resourses\\\\File.xml");
-		for(Classs cls : c) {
-			System.out.println("class name :"+cls.getName());
-			System.out.println("liste des fields: ");
-			for(FieldsModels field : cls.getFields()) {
-				if(field!=null) {
-					
-					System.out.println("\t"+field.getName());
-				}
-			}
-			System.out.println("liste des Methods: ");
-			
-			for(MethodModels m : cls.getMethods()) {
-				if(m != null) {
-				System.out.println("\t"+m.getName());
-			}}
-		}
-	}
+	
 	
 	public void exp06() {
 		 ClassParser x = new ClassParser();
-	        List<Classs> classesList = x.parse("C:\\\\DATA\\\\workspace\\\\Allou Hanane - UML Diagrams Generator\\\\src\\\\resourses\\\\File.xml");
+	        Set<Classs> classesList = x.parse("C:\\\\DATA\\\\workspace\\\\Allou Hanane - UML Diagrams Generator\\\\src\\\\resourses\\\\File.xml");
 
 	        for (Classs classs : classesList) {
 	            System.out.println("Class Name: " + classs.getName());
@@ -105,7 +87,7 @@ public class Exemples {
 	}
 	public void exp07() {
 		PackageParser x = new PackageParser();
-	        List<PackageM> classesList = x.parse("C:\\\\DATA\\\\workspace\\\\Allou Hanane - UML Diagrams Generator\\\\src\\\\resourses\\\\File.xml");
+	       Set<PackageM> classesList = x.parse("C:\\\\DATA\\\\workspace\\\\Allou Hanane - UML Diagrams Generator\\\\src\\\\resourses\\\\File.xml");
 
 	        for (PackageM p : classesList) {
 	            System.out.println("Package Name: " + p.getName());
@@ -115,6 +97,20 @@ public class Exemples {
 	            }
 	            System.out.println("///////////////////////////");
 	        }
+	}
+	
+	
+	public void exp08() {
+				ProjectReflect projectReflect = new ProjectReflect("C:\\\\DATA\\\\workspace\\\\p04-XML-2 Parsers\\\\bin");
+				Project project = projectReflect.projectLoader();
+				Set<Class<?>> classes = projectReflect.getClassesLoaded();
+		        ClassRelations relationProcessor = new ClassRelations(classes);
+		        Set<Relation> detectedRelations = relationProcessor.detectRelations();
+		        System.out.println(detectedRelations);
+		        for (Relation relation : detectedRelations) {
+		            System.out.println(relation);
+		        }
+		    
 	}
 	void ClassExtractor() {
 		Class<?> cl1 = null;
@@ -177,7 +173,9 @@ public class Exemples {
 	}
 	
 
-	
+	public void exp09(){
+		new Main();
+	}
 	
 	public static void main(String[] args) {
 		new Exemples();

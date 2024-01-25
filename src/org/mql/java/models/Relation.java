@@ -4,7 +4,7 @@ import org.mql.java.enumerations.RelationType;
 
 public class Relation {
 	private RelationType type;
-    private Class<?> sourceClass;
+    private Class<?> sourceClass;//class parent si heritage ou class source si aggregation
     private Class<?> targetClass;
 
     public Relation(RelationType type, Class<?> sourceClass, Class<?> targetClass) {
@@ -37,5 +37,12 @@ public class Relation {
 		this.targetClass = targetClass;
 	}
     
-
+	 @Override
+	    public String toString() {
+	        return "Relation{" +
+	                "type=" + type +
+	                ", sourceClass=" + sourceClass.getName() +
+	                ", targetClass=" + targetClass.getName() +
+	                '}';
+	    }
 }

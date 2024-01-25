@@ -10,9 +10,11 @@ public class Project {
 	public Project() {
 		
 	}
-	public Project(String name, Set<PackageM> packages) {
+	public Project(String name, Set<PackageM> packages, Set<Relation> relations) {
+		super();
 		this.name = name;
 		this.packages = packages;
+		this.relations = relations;
 	}
 	public String getName() {
 		return name;
@@ -32,7 +34,6 @@ public class Project {
 	public void setRelations(Set<Relation> relations) {
 		this.relations = relations;
 	}
-	
 	
 
 }

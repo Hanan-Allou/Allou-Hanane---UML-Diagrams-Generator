@@ -2,18 +2,21 @@ package org.mql.java.xml.dom;
 
 import org.mql.java.models.Classs;
 import org.mql.java.models.FieldsModels;
+import org.mql.java.models.MethodModels;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ClassParser {
 
-    public List<Classs> parse(String src) {
-        List<Classs> classesList = new ArrayList<>();
+    public Set<Classs> parse(String src) {
+        Set<Classs> classesList = new HashSet<Classs>();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -35,7 +38,7 @@ public class ClassParser {
                         String className = classElement.getAttribute("className");
 
                         List<FieldsModels> fieldsList = new ArrayList<>();
-
+                        List<MethodModels> methodsList = new ArrayList<>();
                         NodeList methodNodes = classElement.getElementsByTagName("method");
                         for (int k = 0; k < methodNodes.getLength(); k++) {
                             Node methodNode = methodNodes.item(k);
@@ -45,10 +48,22 @@ public class ClassParser {
 
                                 String methodType = methodElement.getAttribute("methodType");
                                 String methodName = methodElement.getTextContent();
-                                fieldsList.add(new FieldsModels(methodName, methodType));
+                                methodsList.add(new MethodModels(methodName, methodType));
                             }
                         }
-                        Classs classs = new Classs(className, fieldsList, new ArrayList<>());
+                        NodeList FieldNodes = classElement.getElementsByTagName("field");
+                        for (int k = 0; k < FieldNodes.getLength(); k++) {
+                            Node FieldNode = FieldNodes.item(k);
+
+                            if (FieldNode.getNodeType() == Node.ELEMENT_NODE) {
+                                Element fieldElement = (Element) FieldNode;
+
+                                String fieldType = fieldElement.getAttribute("fieldType");
+                                String fieldName = fieldElement.getTextContent();
+                                fieldsList.add(new FieldsModels(fieldName, fieldType));
+                            }
+                        }
+                        Classs classs = new Classs(className, fieldsList, methodsList);
                         classesList.add(classs);
                     }
                 }
@@ -60,17 +75,5 @@ public class ClassParser {
         return classesList;
     }
 
-    public static void main(String[] args) {
-        ClassParser x = new ClassParser();
-        List<Classs> classesList = x.parse("C:\\\\DATA\\\\workspace\\\\Allou Hanane - UML Diagrams Generator\\\\src\\\\resourses\\\\File.xml");
-
-        for (Classs classs : classesList) {
-            System.out.println("Class Name: " + classs.getName());
-            System.out.println("Fields:");
-            for (FieldsModels fieldsModel : classs.getFields()) {
-                System.out.println("\tField Name: " + fieldsModel.getName() + ", Field Type: " + fieldsModel.getType());
-            }
-            System.out.println("///////////////////////////");
-        }
-    }
+    
 }
