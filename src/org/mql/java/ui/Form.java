@@ -38,14 +38,14 @@ public class Form extends JPanel {
 	private void generateClassDiagram() {
 		generateXmlFile();
 		ClassParser x = new ClassParser();
-    	Set<Classs> classesList = x.parse("C:\\\\DATA\\\\workspace\\\\Allou Hanane - UML Diagrams Generator\\\\resources\\\\File.xml");
+    	Set<Classs> classesList = x.parse("resources\\\\File.xml");
     	new ClassDiagDrawer(classesList);
 	}
 
 
 	private void generatePackageDiagram() {
 		PackageParser x = new PackageParser();
-    	Set<PackageM> packageList = x.parse("C:\\\\DATA\\\\workspace\\\\Allou Hanane - UML Diagrams Generator\\\\resources\\\\File.xml");
+    	Set<PackageM> packageList = x.parse("resources\\File.xml");
     	new PackageDiagDrawer(packageList);
 	}
 
@@ -60,7 +60,7 @@ public class Form extends JPanel {
 		}
 		ProjectReflect projectReflect = new ProjectReflect(path+"\\bin");
     	Project project = projectReflect.projectLoader();
-    	XMLWRITER.createXML(project, "C:\\DATA\\workspace\\Allou Hanane - UML Diagrams Generator\\resources\\File.xml");
+    	XMLWRITER.createXML(project, "resources\\File.xml");
     	
 	}
 	

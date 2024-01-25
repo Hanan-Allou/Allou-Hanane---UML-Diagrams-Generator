@@ -65,7 +65,7 @@ public class XMLWRITER {
 
             transformer.transform(source, result);
 
-            System.out.println("XML file created successfully!");
+         
 
         } catch (ParserConfigurationException | TransformerException e) {
             e.printStackTrace();

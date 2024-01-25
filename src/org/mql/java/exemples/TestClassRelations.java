@@ -1,10 +1,12 @@
-package org.mql.java.reflection;
+package org.mql.java.exemples;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.mql.java.models.Project;
 import org.mql.java.models.Relation;
+import org.mql.java.reflection.ClassRelations;
+import org.mql.java.reflection.ProjectReflect;
 
 public class TestClassRelations {
 
